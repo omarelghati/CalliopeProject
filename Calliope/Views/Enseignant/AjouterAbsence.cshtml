@@ -1,0 +1,67 @@
+﻿@model Calliope.ViewModels.Enseignant.AjouterAbsenceViewModel
+@{
+    ViewBag.Title = "AjouterAbsence";
+    Layout = "~/Views/Enseignant/_Layout.cshtml";
+}
+<style>
+    .done{
+        color : #00FF00;
+    }
+</style>
+<script>
+    function noterAbsence(e, eleve, discipline) {
+        if (e.className == "glyphicon glyphicon-ok") {
+            window.location.replace("/Enseignant/NoterAbsence/" + eleve + "/" + discipline);
+            e.className += " done";
+        } else {
+            e.className = "glyphicon glyphicon-ok";
+        }
+    }
+    //$("#test").load(function () {
+    //   alert()
+    //});
+</script>
+
+<h2>Ajouter une Absence</h2>
+<h2 class="text-center">Niveau :@Model.Groupe.Niveau.niveau</h2>
+<h3 class="text-center">@Model.Groupe.nomGroupe</h3>
+<div class="panel-body">
+    <div class="table-responsive">
+        <h2></h2>
+        <table id="test" class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Eleve #</th>
+                    <th>Nom de l'élève</th>
+                    <th>Noter absence (Cliquez pour ajouter)</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var @eleve in @Model.Groupe.Eleves)
+                    {
+                        <tr>
+                            <td>@eleve.Id</td>
+                            <td>@eleve.nomComplet</td>
+                            @if (@Session["absdone"] != null)
+                            {
+                                if (@eleve.Id == (int)@Session["absdone"])
+                                {
+                                    <td><i class="glyphicon glyphicon-ok done"></i></td>
+                                }
+                                else
+                                {
+                                    <td><i onclick="noterAbsence(this,@eleve.Id,@Model.Discipline.Id)" class="glyphicon glyphicon-ok"></i></td>
+                                }
+                            }
+                            else
+                            {
+                                <td><i onclick="noterAbsence(this,@eleve.Id,@Model.Discipline.Id)" class="glyphicon glyphicon-ok"></i></td>
+                            }
+                        </tr>
+                        @*<span class="badge">{{remarque?.time}}</span>&nbsp; &nbsp; &nbsp; &nbsp;
+                        <span class="badge">Pr.{{remarque?.professeur.nomcomplet}}</span>*@
+                    }
+            </tbody>
+        </table>
+    </div>
+</div>

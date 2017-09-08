@@ -1,0 +1,47 @@
+﻿@model Calliope.Models.App.Emploi
+
+@{
+    ViewBag.Title = "AjouterEmploi";
+    Layout = "~/Views/Administration/_Layout.cshtml";
+}
+
+
+
+<h2>AjouterEmploi</h2>
+
+@using (Html.BeginForm("AjouterEmploi", "Administration", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal col-md-6 col-md-offset-2">
+        <h4>Emploi</h4>
+        <hr />
+        <div class="alert alert-info">L'emploi de ce groupe sera ajouté pour la saison courante</div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FileName,"Fichier :", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" class="form-control" name="emploiFile"/>
+                @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
+            </div>
+        </div>        
+        <a style="margin-right:10px;" class="pull-left" href="@Url.Action("Groupes")">
+            <div class="btn btn-default">Revenir</div>
+        </a>
+        <div style="margin-left:10px;">
+            <input type="submit" value="Créer" class="btn btn-primary" />
+            @Html.ValidationMessage("success_eleve", new { @class = "text-success" })
+        </div>
+    </div>
+}
+<script>
+    //function test() {
+    //    var saisons = document.getElementById("selectedSaison");
+    //    alert();
+    //    var selectedValue = saisons.options[saisons.selectedIndex].value;
+    //    alert(selectedValue);
+    //}
+    //$("#selectedSaison").blur(function () {
+    //    alert("Handler for .blur() called.");
+    //});
+</script>

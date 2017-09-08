@@ -1,0 +1,36 @@
+﻿@model Calliope.ViewModels.Administration.AffecterEleveViewModel
+
+@{
+    ViewBag.Title = "AffecterEleve";
+    Layout = "~/Views/Administration/_Layout.cshtml";
+}
+
+<h2>Affecter un élève</h2>
+
+<div class="row">
+    @using (Html.BeginForm("AffecterEleve", "Administration", FormMethod.Post, new { @class="col-md-4 col-md-offset-2", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <select name="selectedEleve" class="form-control">
+                    @foreach (var eleve in Model.Eleves)
+                {
+                        <option value="@eleve.Id">@eleve.nomComplet</option>
+                    }
+                </select>
+            </div>
+            @{var selected = (int)Session["selectedGroupe"]; }
+            <a style="margin-right:10px;" class="pull-left" href="@Url.Action("AfficherGroupe",new { id = selected})">
+                <div class="btn btn-default">Revenir</div>
+            </a>
+            <div style="margin-left:10px;">
+                <input type="submit" value="Ajouter" class="btn btn-primary" />
+                @Html.ValidationMessage("success_AffecterEleve", new { @class = "text-success" })
+            </div>
+        </div>
+      }
+</div>

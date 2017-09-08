@@ -1,0 +1,133 @@
+﻿@model Calliope.Models.App.Administration
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Administration/_Layout.cshtml";
+}
+@{ var admin = Model;}
+<h1 class="page-header">Bonjour, @admin.nomComplet</h1>
+<div class="row">
+    <div class=" col-lg-3 col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row text-center">
+                    <div>
+                        <div class="huge">@Session["enseignants"]</div>
+                        <div>Enseignants</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("Enseignants")">
+                <div class="panel-footer">
+                    <span class="pull-left">Voir la liste</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="row text-center">
+                    <div>
+                        <div class="huge">@Session["parents"]</div>
+                        <div>Parents</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("Parents")">
+                <div class="panel-footer">
+                    <span class="pull-left">Voir la liste</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-12">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row text-center">
+                    <div>
+                        <div class="huge">@Session["coords"]</div>
+                        <div>Coordinateurs</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("Coordinateurs")">
+                <div class="panel-footer">
+                    <span class="pull-left">Voir la liste</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-12">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row text-center">
+                    <div>
+                        <div class="huge">@Session["groupes"]</div>
+                        <div>Groupes</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("Groupes")">
+                <div class="panel-footer">
+                    <span class="pull-left">Voir la liste</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6 col-md-offset-2">
+        @using (Html.BeginForm("Index", "Enseignant", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Vos informations personnelles</legend>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="textinput">Nom complet</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="nomComplet" value="@admin.nomComplet" class="form-control">
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="textinput">E-mail</label>
+                    <div class="col-sm-10">
+                        <input type="email" name="email" Value="@admin.email" class="form-control">
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="textinput">Téléphone Mobile</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="phone" value="@admin.phone" class="form-control">
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="textinput">Civilité</label>
+                    <div class="col-sm-4">
+                        <select name="civilite" class="form-control">
+                            <option value="Monsieur">Monsieur</option>
+                            <option value="Madamme">Madamme</option>
+                            <option value="Mademoiselle">Mademoiselle</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-offset-2">
+                        <input type="submit" value="Enregistrer" class=" pull-right btn btn-primary col-sm-3" />
+                    </div>
+                </div>
+            </fieldset>
+        }
+    </div><!-- /.col-lg-12 -->
+</div>
+

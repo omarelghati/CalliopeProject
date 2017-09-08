@@ -1,0 +1,60 @@
+﻿@model Calliope.ViewModels.Administration.AjouterEleveViewModel
+
+@{
+    ViewBag.Title = "AjouterEleve";
+    Layout = "~/Views/Administration/_Layout.cshtml";
+}
+
+<h2>Ajouter un Elève</h2>
+
+@using (Html.BeginForm("AffecterEleve", "Administration", FormMethod.Post, new {role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal col-md-6 col-md-offset-2">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class = "control-label col-md-4">Nom complet</label>
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Eleve.nomComplet, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Eleve.nomComplet, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Eleve.gender, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Eleve.gender, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Eleve.gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Eleve.dateDeNaissance, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Eleve.dateDeNaissance, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Eleve.dateDeNaissance, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.selectedParent, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+               <select  name ="selectedParent"class="form-control">
+                   @foreach (var p in Model.Parents)
+                   {
+                    <option value="@p.Id">@p.nomComplet</option>
+                   }
+               </select>
+            </div>
+        </div>
+        @{var selected = (int)Session["selectedGroupe"]; }
+        <a  style="margin-right:10px;" class="pull-left"href="@Url.Action("AfficherGroupe",new { id = selected})">
+            <div class="btn btn-default">Revenir</div>
+        </a>
+        <div style="margin-left:10px;">
+            <input type="submit" value="Créer" class="btn btn-primary" />
+            @Html.ValidationMessage("success_eleve" ,new { @class = "text-success" })
+        </div>
+    </div>
+}

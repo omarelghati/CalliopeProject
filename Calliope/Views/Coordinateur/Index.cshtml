@@ -1,0 +1,36 @@
+﻿@model Calliope.ViewModels.Coordinateur.CoordIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Coordinateur/_Layout.cshtml";
+}
+
+<h1>Bonjour Mr @Model.Coordinateur.nomComplet</h1>
+<br /><br />
+<table class="table table-bordered">
+    <thead class="bg-primary">
+        <tr>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th></th>
+        </tr>
+    </thead>
+
+@foreach (var item in Model.Periodes) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.start)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.end)
+        </td>
+        <td>
+            @Html.ActionLink("Modifier", "ModifierPeriode", new { id=item.Id }) |
+            @Html.ActionLink("Supprimer", "SupprimerPeriode", new { id=item.Id })
+        </td>
+    </tr>
+}
+</table>
+<p>
+    @Html.ActionLink("Ajouter une periode", "CreerPeriode")
+</p>

@@ -1,0 +1,54 @@
+﻿@model Calliope.Models.App.Groupe
+
+@{
+    ViewBag.Title = "AfficherGroupe";
+    Layout = "~/Views/Administration/_Layout.cshtml";
+}
+
+
+<h2>Groupe</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Nom Complet
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            Date de naissance
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Eleves) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomComplet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateDeNaissance)
+        </td>
+        <td>
+            @Html.ActionLink("Modifier", "ModifierEleve", new { id=item.Id }) |
+            @Html.ActionLink("Supprimer", "SupprimerEleve", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+<a href="@Url.Action("Groupes")">
+    <div class="btn btn-default">Revenir</div>
+</a>
+@{ Session["selectedGroupe"] = Model.Id;}
+<a href="@Url.Action("AjouterEleve",new { id = Model.Id})">
+    <div class="btn btn-primary">Ajouter un nouvel élève</div>
+</a>
+<a href="@Url.Action("AffecterEleve",new { id = Model.Id})">
+    <div class="btn btn-warning">Affecter un élève existant</div>
+</a>

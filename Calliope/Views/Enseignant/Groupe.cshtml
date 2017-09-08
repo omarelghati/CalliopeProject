@@ -1,0 +1,68 @@
+﻿@model Calliope.ViewModels.Enseignant.GroupeViewModel
+@{
+    ViewBag.Title = "Groupe";
+    Layout = "~/Views/Enseignant/_Layout.cshtml";
+}
+
+<h2 class="text-center">Niveau :@Model.Groupe.Niveau.niveau</h2>
+<h3 class="text-center">@Model.Groupe.nomGroupe</h3>
+<div class="panel-body">
+    <div class="table-responsive">
+        <h2></h2>
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Eleve #</th>
+                    <th>Nom de l'élève</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var eleve in @Model.Eleves)
+                    {
+                        <tr>
+                            <td>@eleve.Id</td>
+                            <td>@eleve.nomComplet</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<h3>Noter des Absents :</h3>
+<div class="container-fluid col-md-8">
+    <label class="col-md-4">Choisissez la discipline</label>
+   <div class="form-group col-md-6">
+       <select id="choixDiscipline" class="form-control col-md-6">
+           @foreach (var d in Model.Groupe.Disciplines)
+           {
+               <option value="@d.Id">@d.nomDiscipline</option>
+           }
+       </select>
+   </div>
+    <div class="form-group col-md-2">
+       <div class="btn btn-primary" onclick="AjouterAbsence(@Model.Groupe.Id)">Confirmer</div>
+    </div>
+</div>
+
+
+
+<script>
+    function AjouterAbsence(a) {
+        var e = document.getElementById("choixDiscipline");
+        var selected = e.options[e.selectedIndex].value;
+
+        //var groupes = document.getElementById(selected + "");
+        //var result = document.getElementById("result");
+        //result.options.length = 0;
+        //for (var i = 0; i < groupes.options.length; i++) {
+        //    console.log(i);
+        //    opt = document.createElement("option");
+        //    opt.value = groupes.options[i].value;
+        //    opt.textContent = groupes.options[i].value;
+        //    result.appendChild(opt);
+        
+        window.location.replace("/Enseignant/AjouterAbsence/" + selected + "/" + a);
+    }
+</script>

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Calliope.Models.App.Enseignant>
+
+@{
+    ViewBag.Title = "Enseignants";
+    Layout = "~/Views/Administration/_Layout.cshtml";
+}
+
+<h2>Liste des enseignants</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nomComplet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            Numéro de téléphone
+        </th>
+        <th>
+            civilité
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomComplet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.civilite)
+        </td>
+        <td>
+            <a href="@Url.Action("ModifierEnseignant", new { id = item.Id })"><span class="btn btn-success">Modifier</span></a>  &nbsp;&nbsp;
+            <a href="@Url.Action("SupprimerEnseignant", new { id = item.Id })"><span class="btn btn-danger">Supprimer</span></a>
+        </td>
+    </tr>
+}
+
+</table>

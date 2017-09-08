@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Calliope.Models.App.Groupe>
+
+@{
+    ViewBag.Title = "Groupes";
+    Layout = "~/Views/Administration/_Layout.cshtml";
+}
+
+<h2>Groupes</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nomGroupe)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomGroupe)
+        </td>
+        <td>
+            <a href="@Url.Action("AfficherGroupe", new { id = item.Id })"><span class="btn btn-success">Afficher</span></a>  &nbsp;
+            @if (item.Emploi == null) {<a href="@Url.Action("AjouterEmploi", new { id = item.Id })"><span class="btn btn-primary">Ajouter emploi du temps</span></a> }
+            else{<a href="@Href(@item.Emploi.FilePath+"/"+item.Emploi.FileName)"><span class="btn btn-primary">Afficher emploi du temps</span></a>}&nbsp;
+            <a href="@Url.Action("SupprimerGroupe", new { id = item.Id })"><span class="btn btn-danger">Supprimer</span></a>
+        </td>
+    </tr>
+}
+
+</table>
+<a href="@Url.Action("Index")">
+    <div class="btn btn-default">Revenir</div>
+</a>
+<a href="@Url.Action("CreerGroupe")">
+    <div class="btn btn-primary">Creer un groupe</div>
+</a>

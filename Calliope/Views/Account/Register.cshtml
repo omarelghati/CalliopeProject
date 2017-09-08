@@ -1,0 +1,41 @@
+﻿@model Calliope.Models.User
+@{
+    ViewBag.Title = "Register";
+}
+@Styles.Render("~/Content/LoginStyle.css")
+<h2>@ViewBag.Title.</h2>
+
+
+<div class="wrapper">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-signin", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <center>
+            <h4 style="color:white">Fiche d'inscription</h4>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.nomComplet, new { @class = "form-control", @placeholder = "Nom complet.." })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.email, new { @class = "form-control" , @placeholder = "Adresse E-mail.."})
+                </div>
+                @Html.TextBoxFor(m => m.phone, new { @class = "form-control", @placeholder = "Numéro du téléphone" })
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(m => m.password, new { @class = "form-control" , @placeholder = "Mot de passe.." })
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(m => m.confirmPassword, new { @class = "form-control" , @placeholder = "Confirmation du mot de passe.."})
+            </div>
+            <div class="form-group">
+                <input type="submit" class="col-md-offset-2 btn btn-primary center-block" value="S'inscrire" />
+            </div>
+        </center>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,64 @@
+﻿@model Calliope.Models.App.Coordinateur
+
+@{
+    ViewBag.Title = "ModifierCoordinateur";
+    Layout = "~/Views/Administration/_Layout.cshtml";
+}
+
+<h2>ModifierCoordinateur</h2>
+
+<div class="row">
+    @using (Html.BeginForm("ModifierCoordinateur", "Administration", FormMethod.Post, new { @class = "col-md-6 col-md-offset-2", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.nomComplet, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.nomComplet, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nomComplet, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.civilite, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select name="civilite" class="form-control">
+                        <option value="Monsieur">Monsieur</option>
+                        <option value="Madamme">Madamme</option>
+                        <option value="Mademoiselle">Mademoiselle</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.civilite, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-offset-2">
+                <a href="@Url.Action("Coordinateurs")">
+                    <div class="btn btn-default">Revenir</div>
+                </a>
+                <input value="Enregistrer" class="btn btn-primary" type="submit" />
+
+            </div>
+        </div>
+    }
+</div>

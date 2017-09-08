@@ -1,0 +1,59 @@
+﻿@model Calliope.Models.App.Note
+@{
+    ViewBag.Title = "Èvalutaions Individuelles";
+    Layout = "~/Views/Enseignant/_Layout.cshtml";
+    var evals = (Calliope.Models.App.EvaluationCollective)System.Web.HttpContext.Current.Session["evalDetails"];
+}
+<script>
+    editable = false;
+</script>
+
+<h2>@evals.SavoirFaire.nomSavoir</h2>
+<div class="panel-body">
+    <div class="table-responsive table-hover">
+        <table align="center" class="table table-bordered table-hover table-striped">
+            <tr>
+                <th >Num de l'élève</th>
+                <th >Nom Complet</th>
+              <th>@evals.SavoirFaire.nomSavoir</th>
+            </tr>
+            @{
+                foreach (var eleve in evals.Niveau.Groupes.First().Eleves)
+                {
+                    <tr>
+                        <td>@eleve.Id</td>
+                        <td>@eleve.nomComplet</td>
+                        <td ondblclick="Doit(this)" onkeydown="UndoIt(this,event,@evals.SavoirFaire.Competance.Discipline.Id,@evals.Id,@eleve.Id,@evals.SavoirFaire.Id)" scope="col">
+                        @if (eleve.Notes.Where(c => c.Eleve.Id == eleve.Id).FirstOrDefault(c => c.SavoirFaire.Id == evals.SavoirFaire.Id) != null)
+                        {
+                            @eleve.Notes.Where(c => c.Eleve.Id == eleve.Id).FirstOrDefault(c => c.SavoirFaire.Id == evals.SavoirFaire.Id).note
+                        }
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>
+<script>
+    function Doit(e) {
+        e.contentEditable  = true;
+        console.log("done");
+    }
+    function UndoIt(t, e, discipline, eval, eleve, sf) {
+        if (e.keyCode === 10 || e.keyCode == 13) {
+            if (t.innerText) {
+                if (t.innerText > 20 || t.innerText < 0) {
+                    alert("SVP entrer une note entre 0 et 20");
+                    e.preventDefault();
+                }
+                else {
+                    t.contentEditable = false;
+                    noteValue = t.innerHTML;
+                    e.preventDefault();
+                    window.location = "/AjouterNote/" + discipline * 1 + "/" + eval * 1 + "/" + eleve * 1 + "/" + sf * 1 + "/" + noteValue * 1 + "";
+                }
+            }
+        }
+    }
+</script>

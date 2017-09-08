@@ -1,0 +1,67 @@
+﻿@model Calliope.ViewModels.Enseignant.EvaluationsViewModel
+@{ 
+    ViewBag.Title = "Èvalutaions Individuelles";
+    Layout = "~/Views/Enseignant/_Layout.cshtml";
+    var evals = (List<Calliope.Models.App.EvaluationCollective>)System.Web.HttpContext.Current.Session["evals"];
+    var groupe = (Calliope.Models.App.Groupe)System.Web.HttpContext.Current.Session["selectedGroupe"];
+}
+<div class="panel-body">
+    <div class="table-responsive table-hover">
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Evaluation #</th>
+                    <th>Titre</th>
+                    <th>Niveau</th>
+                    <th>Période</th>
+                    <th>Savoir</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var eval in Model.Evals)
+                    {
+                    <tr onclick="window.location.href='./Evaluations/Details/@eval.Id/@eval.Niveau.Id'">
+                        <td>@eval.Id</td>
+                        <td>@eval.titre</td>
+                        <td>@eval.Niveau.niveau</td>
+                        <td>@eval.Periode.start.ToString("dd/MM/yyyy") - @eval.Periode.end.ToString("dd/MM/yyyy")</td>
+                        <td>@eval.SavoirFaire.nomSavoir</td>
+                        <td>@eval.date</td>
+                    </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<h2>Planifier une évaluation</h2>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Discipline</th>
+                <th>Nom de la discipline</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var discipline in @Model.Disciplines)
+                {
+                    <tr onclick="window.location.href='/Enseignant/Evaluations/Plannifier/@discipline.Id'">
+                        <td>@discipline.Id</td>
+                        <td>@discipline.nomDiscipline</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    jQuery(document).ready(function ($) {
+        $("tr").click(function () {
+            window.location = $(this).data("href");
+        });
+    });
+</script>

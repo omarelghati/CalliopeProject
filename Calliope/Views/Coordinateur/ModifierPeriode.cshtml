@@ -1,0 +1,48 @@
+﻿@model Calliope.Models.App.Periode
+
+@{
+    ViewBag.Title = "Modifier une période";
+    Layout = "~/Views/Coordinateur/_Layout.cshtml";
+}
+
+<h2>Modifier une période</h2>
+
+<div class="row">
+    @using (Html.BeginForm("ModifierPeriode", "Coordinateur", FormMethod.Post, new { role = "form", @class = "form-horizontal col-md-6 col-md-offset-2" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Periode</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.start, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.start, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.end, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.end, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessage("Erreur_periode", new { @class = "text-danger" })
+                    @Html.ValidationMessage("success_periode", new { @class = "text-success" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Enregistrer" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+<div class="row col-md-offset-2">
+    @Html.ActionLink("revenir", "Index")
+</div>

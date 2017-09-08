@@ -1,0 +1,37 @@
+﻿@model Calliope.ViewModels.Parent.ConsultViewModel
+@{
+    ViewBag.Title = "Consulter";
+    Layout = "~/Views/Parent/_Layout.cshtml";
+}
+
+<h2>@Model.Eleve.nomComplet.ToUpper()</h2>
+<div class="table-responsive table-hover">
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Note</th>
+                <th>SavoireFaire</th>
+            </tr>
+        </thead>
+        <tbody>
+               @if (Model.Notes.Count != 0)
+               {
+                foreach (var note in Model.Notes)
+                {
+                    <tr>
+                        <td>@note.Id</td>
+                        <td>@note.note</td>
+                        <td>@note.SavoirFaire.nomSavoir  -  @note.SavoirFaire.Competance.Discipline.nomDiscipline</td>
+                    </tr>
+                   }
+               } else
+               {
+                   <tr><td align="center" colspan="3">Aucune information n'est disponible</td></tr>
+               }
+        </tbody>
+    </table>
+</div>
+
+
+

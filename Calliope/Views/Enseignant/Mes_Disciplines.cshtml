@@ -1,0 +1,126 @@
+﻿@model Calliope.ViewModels.AjoutViewModel
+@{
+    ViewBag.Title = "Mes Disciplines";
+    Layout = "~/Views/Enseignant/_Layout.cshtml";
+}
+<style>
+    #add-discipline {
+        visibility: hidden;
+    }
+
+        #add-discipline .form-group {
+            margin-left: 60px;
+        }
+</style>
+
+<h1> Gestion des disciplines </h1>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-list fa-fw"></i> Liste des disciplines que vous enseingez</h3>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Discipline #</th>
+                        <th>Nom de la discipline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                 
+                       @foreach (var discipline in @Model.CurrentDisciplines)
+                       {
+                        <tr  onclick="window.location.href='/Competance/All/@discipline.Id'">
+                            <td>@discipline.Id</td>
+                            <td>@discipline.nomDiscipline - @discipline.Niveau.niveau</td>
+                        </tr>
+                        }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div onclick="showAddDisc()" class="btn btn-primary">Ajouter une discipline</div>
+<div id="add-discipline">
+    <br />
+    @using (Html.BeginForm("Mes_Disciplines", "Enseignant", FormMethod.Post, new { @class = "form-inline", role = "form", id = "target" }))
+    {
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <select name="Niveau" id="niveau" onblur="chooseNiveau()" class="form-control">
+                        @foreach (var niveau in Model.Data)
+                        {
+                            <option value="@niveau.Key.niveau">@niveau.Key.niveau</option>
+                        }
+                    </select>
+                    @foreach (var niv in Model.Data)
+                {
+                        <select name="Groupes" id="@niv.Key.niveau" hidden>
+                            @foreach (var groupe in niv.Value)
+                    {
+                                <option value="@groupe.nomGroupe">@groupe.nomGroupe</option>
+                            }
+                        </select>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <select name="Groupe" class="form-control" id="result"></select>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                   <input class="form-control" placeholder="Nom de la discipline" name="Discipline"/>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group text-center">
+                    <input type="submit" value="Confirmer" class="form-group btn btn-success align-middle" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@Html.ValidationMessage("done", new { @class = "text-success" })
+@Html.ValidationMessage("exists", new { @class = "text-danger" })
+<div class="alert"></div>
+
+@*<div class="alert alert-danger">DANGER</div>*@
+<script>
+
+    function showAddDisc() {
+        var a = document.getElementById("add-discipline");
+        if (a.style.visibility == "visible")
+            a.style.visibility = "hidden";
+        else
+            a.style.visibility = "visible"
+    }
+</script>
+
+<script>
+
+    function chooseNiveau() {
+        var e = document.getElementById("niveau");
+        var selected = e.options[e.selectedIndex].value;
+        var groupes = document.getElementById(selected + "");
+        var result = document.getElementById("result");
+        result.options.length = 0;
+        for (var i = 0; i < groupes.options.length; i++) {
+            console.log(i);
+            opt = document.createElement("option");
+            opt.value = groupes.options[i].value;
+            opt.textContent = groupes.options[i].value;
+            result.appendChild(opt);
+        }
+    }
+
+jQuery(document).ready(function ($) {
+    $("tr").click(function () {
+        window.location = $(this).data("href");
+    });
+});
+</script>

@@ -1,0 +1,43 @@
+﻿<style>
+    .addCompetance {
+        margin-left:60%;
+    }
+    a {
+        color:white;
+    }
+        a:hover {
+            text-decoration: none;
+            color: white;
+        }
+</style>
+@{
+    ViewBag.Title = "All";
+    Layout = "~/Views/Competance/_Layout.cshtml";
+    var discipline = (Calliope.Models.App.Discipline) System.Web.HttpContext.Current.Session["selectedDiscipline"];
+}
+
+<h2 class="display-2">@discipline.nomDiscipline</h2>
+<div class="row">
+    <div class="col-lg-5">
+        <div class="panel-default">
+            <div class="panel-heading">
+               <h3 class="text-center"> Liste des compétances Ajoutées</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group text-center">
+                    @foreach (var competance in discipline.Competances)
+                    {
+                        <li class="list-group-item active">@competance.nomCompetance <a href="@Url.Action("AjouterSavoir","Competance", new { id = @competance.Id })"><div class="btn btn-success addCompetance">Ajouter un savoir</div></a></li>
+                        foreach (var sf in competance.SavoirFaires)
+                        {
+                            <li class="list-group-item">@sf.nomSavoir <div class="btn btn-success addCompetance">@Html.ActionLink("Supprimer", "SupprimerSavoir", "Competance", new { savId = @sf.Id , compId = @competance.Id}, null)</div></li>
+                        }
+
+                    }
+                </ul>
+            </div>
+        </div>
+        
+        <a href="@Url.Action("AjouterCompetance","Competance")"><div class="btn btn-warning">Ajouter une Competance</div></a>
+    </div>
+</div>

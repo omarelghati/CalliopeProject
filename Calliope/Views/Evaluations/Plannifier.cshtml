@@ -1,0 +1,91 @@
+﻿@model Calliope.ViewModels.Enseignant.PlannifierEvalViewModel
+@{
+    ViewBag.Title = "Plannifier";
+    Layout = "~/Views/Enseignant/_Layout.cshtml";
+}
+<style>
+    .list-inline {
+        height: 20px;
+    }
+
+    #periode {
+        margin: 0;
+    }
+
+    .selected {
+        width: 30vh;
+    }
+
+    li {
+        border-radius: 2px;
+    }
+
+    div {
+        text-align: inherit;
+    }
+</style>
+
+<h2>Plannifier une évaluation</h2>
+@if(Model.Competances.Count == 0)
+{
+    <div>
+        Veuillez ajouter des compétances à cette discipline pour pouvoir programmer une évaluation.
+    </div>
+}
+else
+{
+    foreach (var competance in Model.Competances)
+    {
+        <div class="col-lg-12 competances" id="sh">
+            <div class="col-sm-3">
+                <ul class="list-group">
+                    <li class="list-group-item active">@competance.nomCompetance</li>
+                    @if (@competance.SavoirFaires != null)
+                    {
+                        foreach (var sf in competance.SavoirFaires)
+                        {
+                            <li class="list-group-item">@sf.nomSavoir</li>
+
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                <ul class="list-group list-inline">
+                    @foreach (var periode in Model.Periodes)
+                    {
+
+                        <li class="list-group-item active text-center selected">@periode.start.ToString("MM/dd/yyyy") - @periode.end.ToString("mm/dd/yyyy")</li>
+                    }
+                </ul>
+                @foreach (var sf in competance.SavoirFaires)
+                {
+                    <ul class="list-group list-inline active">
+                        @foreach (var periode in Model.Periodes)
+                        {
+                            if (@Model.Etats.Where(e => e.Periode.Id == periode.Id).Where(e => e.SavoireFaire.Id == sf.Id).FirstOrDefault() != null)
+                            {
+                                var valueEtat = Model.Etats.Where(e => e.Periode.Id == periode.Id).Where(e => e.SavoireFaire.Id == sf.Id).First();
+                                var etat = valueEtat.etat ? "Plannifié" : "Non plannifié";
+                                <li id="items" onclick="change(this,@valueEtat.Id)" onload="load(this)" class="items list-group-item text-center selected">
+                                    @etat
+                                </li>
+                            }
+                        }
+                    </ul>
+                }
+                <input class="btn btn-success text-center" type="submit" style="margin:30px" value="Plannifier" />
+            </div>
+        </div>
+    }
+}
+
+<script>
+    function change(e, Id) {
+        //if (e.innerHTML == "Plannifié") {
+
+        //} else 
+        //    e.innerHTML = "Plannifié";
+        window.location = "./etat/" + Id;    
+    }
+</script>
