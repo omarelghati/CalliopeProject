@@ -281,6 +281,7 @@
     <Compile Include="ViewModels\RegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\404.css" />
     <Content Include="Content\bootstrap-rtl.css" />
     <Content Include="Content\bootstrap-rtl.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -307,6 +308,9 @@
     <Content Include="Content\ico\apple-touch-icon-57-precomposed.png" />
     <Content Include="Content\ico\apple-touch-icon-72-precomposed.png" />
     <Content Include="Content\ico\favicon.png" />
+    <Content Include="Content\images\bg.png" />
+    <Content Include="Content\images\bg1.png" />
+    <Content Include="Content\images\error-img.png" />
     <Content Include="Content\img\backgrounds\1%402x.jpg" />
     <Content Include="Content\img\backgrounds\1.jpg" />
     <Content Include="Content\js\bootstrap.js" />
@@ -394,6 +398,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="ErrorPages\Oops.cshtml" />
+    <Content Include="ErrorPages\404.cshtml" />
+    <Content Include="Content\images\Thumbs.db" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -485,7 +492,6 @@
     <Content Include="Views\Administration\ModifierCoordinateur.cshtml" />
     <Content Include="Views\Administration\AjouterEmploi.cshtml" />
     <Content Include="Views\Enseignant\AjouterAbsence.cshtml" />
-    <Content Include="Views\Parent\ConsulterAbsences.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

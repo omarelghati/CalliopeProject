@@ -8,22 +8,25 @@
         <div class="wrapper">
             @using (Html.BeginForm("Login", "user", FormMethod.Post, new { @class = "form-signin", role = "form" }))
             {
-                @Html.AntiForgeryToken()
                 <h3 class="form-signin-heading">Authentification</h3>
                 <hr class="colorgraph"><br>
                 <center>
-                   @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
                         @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = "Adresse E-mail.." })
                     </div>
                     <div class="form-group">
                         @Html.PasswordFor(m => m.password, new { @class = "form-control", @placeholder = "Mot de passe.." })
                     </div>
-
                 <div class="form-group">
                     @Html.LabelFor(m => m.type, "Voues étes :", new { @style="color:white;" })
                     @Html.DropDownListFor(m => m.selectedType, new SelectList(Model.type, "Value", "Text"), new { @class = "form-control" })
                 </div>
+                    @if (ViewData.ModelState["error_user"] != null)
+                    {
+                        <div class="alert alert-info">
+                            @Html.ValidationMessage("error_user")
+                        </div>
+                    }
                 <input class="btn btn-md btn-success" name="Submit" value="S'authentifier" type="Submit" /> <br/><br/>
                     <div class="form-group">
                         <label for="register" style="color:white;">Vous n'avez pas encore un compte ?</label>

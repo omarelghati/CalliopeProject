@@ -148,7 +148,7 @@ namespace Calliope.Controllers
                             case "Coordinateur":
                                 Coordinateur coordinateur = (Coordinateur)usr;
                                 session.coordinateur = coordinateur;
-                                return RedirectToAction("Index", "Coordinateur", new { area = "" });
+                                return RedirectToAction("Index", "Coordinateur", new { area = "" });                            
                         }
                     }
                         
@@ -158,7 +158,17 @@ namespace Calliope.Controllers
                     ModelState.AddModelError("", "Informations invalides");
                 }
             }
-            return View();
+            ViewModels.LoginViewModel loginvm = new ViewModels.LoginViewModel();
+            loginvm.type = new List<SelectListItem>
+            {
+                new SelectListItem{ Text = "Administrateur", Value = "Administrateur" },
+                new SelectListItem{ Text = "Enseignant", Value = "Enseignant" },
+                new SelectListItem{ Text = "Parent", Value = "Parent" },
+                new SelectListItem{ Text = "Coordinateur", Value = "Coordinateur" },
+                new SelectListItem{ Text = "Administration", Value = "Administration" }
+            };
+            ModelState.AddModelError("error_user", "Utilisateur non trouvé");
+            return View(loginvm);
         }
         [Route("User/Logout")]
         public ActionResult Logout()

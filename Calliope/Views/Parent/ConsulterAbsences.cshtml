@@ -1,0 +1,42 @@
+﻿@model Calliope.Models.App.Eleve
+@{
+    ViewBag.Title = "ConsulterAbsences";
+    Layout = "~/Views/Parent/_Layout.cshtml";
+}
+
+<h2>Consulter les absences </h2>
+<h3>@Model.nomComplet</h3>
+<div class="panel-body">
+    <div class="table-responsive">
+        <h2></h2>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Absence #</th>
+                    <th>Date</th>
+                    <th>Discipline</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var i = 0;
+                    foreach (var absence in @Model.Absences)
+                    {
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td><abbr class="badge">@absence.Date</abbr></td>
+                            <td>@absence.Discipline.nomDiscipline</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    jQuery(document).ready(function () {
+        alert();
+        jQuery('abbr.badge').timeago();
+        
+    });
+</script>
