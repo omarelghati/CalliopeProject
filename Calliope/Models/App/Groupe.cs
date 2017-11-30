@@ -18,5 +18,6 @@ namespace Calliope.Models.App
         public virtual ICollection<Eleve> Eleves { get; set; }
         public virtual ICollection<Discipline> Disciplines { get; set; }
         public virtual Emploi Emploi { get; set; }
+        public virtual Saison Saison { get; set; }
     }
 }

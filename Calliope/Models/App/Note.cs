@@ -17,5 +17,6 @@ namespace Calliope.Models.App
         public virtual Eleve Eleve { get; set; }
         [Required]
         public virtual SavoirFaire SavoirFaire { get; set; }
+        public virtual Saison Saison { get; set; }
     }
 }

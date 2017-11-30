@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Calliope.ViewModels;
 using System;
+using System.Data.Entity.Validation;
 
 namespace Calliope.Controllers
 {
@@ -56,8 +57,34 @@ namespace Calliope.Controllers
             enseignant.email = ens.email;
             enseignant.civilite = ens.civilite;
             enseignant.phone = ens.phone;
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                ModelState.AddModelError("error", "Une erreur s'est produite, veuillez vos informations");
+            }
             session.enseignant = enseignant;
+            var niveaux = _dbContext.Enseignants.Where(a => a.Id == user.Id).Include(ense => ense.Niveaus).First();
+            Dictionary<Niveau, List<Groupe>> Data = new Dictionary<Niveau, List<Groupe>>();
+            foreach (var niveau in niveaux.Niveaus)
+            {
+                var groupes = niveau.Groupes.ToList();
+                foreach (var groupe in groupes.ToList())
+                {
+                    if (groupe.Enseignants.Count == 0)
+                        groupes.Remove(groupe);
+                }
+                Data.Add((Niveau)niveau, (List<Groupe>)groupes);
+            }
+            session.Data = Data;
+            var counter = 0;
+            foreach (var groupe in enseignant.Groupes)
+            {
+                counter += groupe.Eleves.Count;
+            }
+            Session["counter"] = counter;
             return View(enseignant);
         }
         public ActionResult Mes_Disciplines()

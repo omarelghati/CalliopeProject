@@ -10,7 +10,9 @@ namespace Calliope.Models.App
     {
         public int Id { get; set; }
         [Required]
-        public DateTime dateSaison { get; set; }
+        public DateTime SeasonStart { get; set; }
+        [Required]
+        public DateTime SeasonEnd { get; set; }
         public virtual ICollection<Periode> Periodes { get; set; }
     }
 }

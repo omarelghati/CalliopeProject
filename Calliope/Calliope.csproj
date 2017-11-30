@@ -237,6 +237,18 @@
     <Compile Include="Migrations\201709081031016_updating.Designer.cs">
       <DependentUpon>201709081031016_updating.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709162050536_conf-pass.cs" />
+    <Compile Include="Migrations\201709162050536_conf-pass.Designer.cs">
+      <DependentUpon>201709162050536_conf-pass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710021540034_add-season.cs" />
+    <Compile Include="Migrations\201710021540034_add-season.Designer.cs">
+      <DependentUpon>201710021540034_add-season.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711292211522_phone-restrict.cs" />
+    <Compile Include="Migrations\201711292211522_phone-restrict.Designer.cs">
+      <DependentUpon>201711292211522_phone-restrict.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\App\Absence.cs" />
@@ -401,6 +413,7 @@
     <Content Include="ErrorPages\Oops.cshtml" />
     <Content Include="ErrorPages\404.cshtml" />
     <Content Include="Content\images\Thumbs.db" />
+    <Content Include="Files\rapport_TP4.pdf" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -523,6 +536,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709081031016_updating.resx">
       <DependentUpon>201709081031016_updating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709162050536_conf-pass.resx">
+      <DependentUpon>201709162050536_conf-pass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710021540034_add-season.resx">
+      <DependentUpon>201710021540034_add-season.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711292211522_phone-restrict.resx">
+      <DependentUpon>201711292211522_phone-restrict.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

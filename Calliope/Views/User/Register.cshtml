@@ -24,9 +24,11 @@
             <div class="form-group">
                 @Html.PasswordFor(m => m.password, new { @class = "form-control" , @placeholder = "Mot de passe.." })
             </div>
+            @Html.ValidationMessageFor(model => model.password)
             <div class="form-group">
                 @Html.PasswordFor(m => m.confirmPassword, new { @class = "form-control" , @placeholder = "Confirmation du mot de passe.."})
             </div>
+            @Html.ValidationMessageFor(model => model.confirmPassword)
             <div class="form-group">
                 @Html.LabelFor(m => m.selectedCivility, "Civilité :")
                @Html.DropDownListFor(m => m.selectedCivility, new SelectList(Model.civilite,"Value","Text"), new { @class="form-control"})

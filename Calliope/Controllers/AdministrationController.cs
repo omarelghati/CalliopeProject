@@ -29,6 +29,20 @@ namespace Calliope.Controllers
             Session["parents"] = dbContext.Parents.Count();
             return View(admin);
         }
+        [HttpPost]
+        public ActionResult Index(Administration ens)
+        {
+            var user = (Administration)System.Web.HttpContext.Current.Session["administration"];
+            var administration = dbContext.Administrations.SingleOrDefault(e => e.Id == user.Id);
+            administration.nomComplet = ens.nomComplet;
+            administration.email = ens.email;
+            administration.civilite = ens.civilite;
+            administration.phone = ens.phone;
+            dbContext.SaveChanges();
+            session.administration = administration;
+            return View(administration);
+        }
+
         //Enseignants
         public ActionResult Enseignants()
         {

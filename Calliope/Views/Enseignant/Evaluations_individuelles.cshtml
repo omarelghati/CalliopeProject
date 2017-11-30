@@ -1,0 +1,30 @@
+﻿@{ 
+    ViewBag.Title = "Èvalutaions Individuelles";
+    Layout = "~/Views/Enseignant/_Layout.cshtml";
+}
+<div class="panel-body">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Evaluation #</th>
+                    <th>evaluation pour</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@{
+                    foreach (var eval in Model)
+                    {
+                        <tr>
+                            <td>@eval.Id</td>
+                            <td>@eval.Eleve.nomComplet</td>
+                        </tr>
+                    }
+                }*@
+            </tbody>
+        </table>
+    </div>
+    <div class="text-right">
+        <a href="#">View All Transactions <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+</div>

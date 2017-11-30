@@ -61,6 +61,7 @@
             <!-- Form Name -->
             <legend>Vos informations personnelles</legend>
             <!-- Text input-->
+              @Html.ValidationMessage("error", new { @class = "text-danger" })
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="textinput">Nom complet</label>
                 <div class="col-sm-10">
@@ -92,6 +93,7 @@
                     </select>
                 </div>
                 <div class="col-sm-offset-2">
+                    @Html.HiddenFor(m => m.Id)
                         <input type="submit" value="Enregistrer" class=" pull-right btn btn-primary col-sm-3" />
                 </div>
             </div>

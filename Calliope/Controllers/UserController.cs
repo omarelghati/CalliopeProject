@@ -15,7 +15,7 @@ namespace Calliope.Controllers
         {
             return View();
         }
-
+        [AllowAnonymous]
         public ActionResult Register()
         {
             ViewModels.RegisterViewModel register = new ViewModels.RegisterViewModel();
@@ -38,9 +38,6 @@ namespace Calliope.Controllers
         [HttpPost]
         public ActionResult Register(ViewModels.RegisterViewModel register)
         {
-            //Regex regex = new Regex("^([\\+]?(?:00)?[0-9]{1,3}[\\s.-]?[0-9]{1,12})([\\s.-]?[0-9]{1,4}?)$");
-            //if (regex.IsMatch(user.phone))
-            //{
             if (ModelState.IsValid)
             {
                 using (ApplicationDbContext db = new ApplicationDbContext())
@@ -52,31 +49,30 @@ namespace Calliope.Controllers
                             Parent p = new Parent();
                             p.generateData(register);
                             db.Users.Add(p);
-                            break;
+                            return RedirectToAction("Index", "Parent", new { area = "" });
                         case "Enseignant":
                             Enseignant e = new Enseignant();
                             e.generateData(register);
                             db.Users.Add(e);
-                            break;
+                            return RedirectToAction("Index", "Enseignant", new { area = "" });
                         case "Administrateur":
                             Administrateur a = new Administrateur();
                             a.generateData(register);
                             db.Users.Add(a);
-                            break;
+                            return RedirectToAction("Index", "Administrateur", new { area = "" });
                         case "Coordinateur":
                             Coordinateur c = new Coordinateur();
                             c.generateData(register);
                             db.Users.Add(c);
-                            break;
+                            return RedirectToAction("Index", "Coordinateur", new { area = "" });
                         case "Administration":
                             Administration ad = new Administration();
                             ad.generateData(register);
                             db.Users.Add(ad);
-
-                            break;
+                            return RedirectToAction("Index", "Administration", new { area = "" });
                     }
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Home", new { area = "" });
+                   
                 }
             } 
            

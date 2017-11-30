@@ -18,5 +18,6 @@ namespace Calliope.Models.App
         public virtual Enseignant Enseignant { get; set; }
         [Required]
         public virtual Discipline Discipline { get; set; }
+        public virtual Saison Saison { get; set; }
     }
 }

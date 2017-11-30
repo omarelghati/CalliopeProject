@@ -21,5 +21,6 @@ namespace Calliope.Models.App
         public virtual Periode Periode { get; set; }
         public virtual Niveau Niveau { get; set; }
         public virtual ICollection<Competance> Competances { get; set; }
+        public virtual Saison Saison { get; set; }
     }
 }
